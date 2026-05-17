@@ -7,6 +7,7 @@ const Review = require('./models/review');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/dealership';
@@ -34,16 +35,19 @@ async function seedData() {
         console.log('Seed dealers inserted');
     }
 
+    // Clean any reviews with null ids, then seed
+    await Review.deleteMany({ id: null });
+
     const reviewCount = await Review.countDocuments();
     if (reviewCount === 0) {
         const reviews = [
-            { name: "John D.", dealership: 1, review: "Excellent service and great selection of vehicles. The staff was very helpful throughout the process.", purchase: true, purchase_date: "2025-11-15", car_make: "Toyota", car_model: "Camry", car_year: "2025" },
-            { name: "Sarah M.", dealership: 1, review: "Found my dream car here! The financing options were flexible and reasonable.", purchase: true, purchase_date: "2026-01-20", car_make: "Honda", car_model: "CR-V", car_year: "2026" },
-            { name: "Mike R.", dealership: 2, review: "Terrible experience. The car had issues that weren't disclosed.", purchase: true, purchase_date: "2025-09-10", car_make: "BMW", car_model: "X5", car_year: "2024" },
-            { name: "Emily T.", dealership: 2, review: "Amazing luxury car selection. The sales team really knows their products.", purchase: false },
-            { name: "David K.", dealership: 3, review: "Fair prices and no pressure sales approach. I would recommend them.", purchase: true, purchase_date: "2026-03-05", car_make: "Ford", car_model: "F-150", car_year: "2026" },
-            { name: "Lisa W.", dealership: 4, review: "Fantastic services! The maintenance department went above and beyond.", purchase: true, purchase_date: "2025-07-22", car_make: "Chevrolet", car_model: "Equinox", car_year: "2023" },
-            { name: "Tom H.", dealership: 5, review: "Good value for the price. The used car selection was impressive.", purchase: false },
+            { id: 1, name: "John D.", dealership: 1, review: "Excellent service and great selection of vehicles. The staff was very helpful throughout the process.", purchase: true, purchase_date: "2025-11-15", car_make: "Toyota", car_model: "Camry", car_year: "2025" },
+            { id: 2, name: "Sarah M.", dealership: 1, review: "Found my dream car here! The financing options were flexible and reasonable.", purchase: true, purchase_date: "2026-01-20", car_make: "Honda", car_model: "CR-V", car_year: "2026" },
+            { id: 3, name: "Mike R.", dealership: 2, review: "Terrible experience. The car had issues that weren't disclosed.", purchase: true, purchase_date: "2025-09-10", car_make: "BMW", car_model: "X5", car_year: "2024" },
+            { id: 4, name: "Emily T.", dealership: 2, review: "Amazing luxury car selection. The sales team really knows their products.", purchase: false },
+            { id: 5, name: "David K.", dealership: 3, review: "Fair prices and no pressure sales approach. I would recommend them.", purchase: true, purchase_date: "2026-03-05", car_make: "Ford", car_model: "F-150", car_year: "2026" },
+            { id: 6, name: "Lisa W.", dealership: 4, review: "Fantastic services! The maintenance department went above and beyond.", purchase: true, purchase_date: "2025-07-22", car_make: "Chevrolet", car_model: "Equinox", car_year: "2023" },
+            { id: 7, name: "Tom H.", dealership: 5, review: "Good value for the price. The used car selection was impressive.", purchase: false },
         ];
         await Review.insertMany(reviews);
         console.log('Seed reviews inserted');
@@ -113,13 +117,13 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 // Insert a review
 app.post('/insertReview', async (req, res) => {
     try {
-        const lastReview = await Review.findOne().sort({ id: -1 });
+        const lastReview = await Review.findOne({ id: { $ne: null } }).sort({ id: -1 });
         const newId = lastReview ? lastReview.id + 1 : 1;
 
         const review = new Review({
             id: newId,
             name: req.body.name,
-            dealership: req.body.dealership,
+            dealership: parseInt(req.body.dealership),
             review: req.body.review,
             purchase: req.body.purchase || false,
             purchase_date: req.body.purchase_date || '',
@@ -137,13 +141,13 @@ app.post('/insertReview', async (req, res) => {
 // Insert review (underscore version for lab compatibility)
 app.post('/insert_review', async (req, res) => {
     try {
-        const lastReview = await Review.findOne().sort({ id: -1 });
+        const lastReview = await Review.findOne({ id: { $ne: null } }).sort({ id: -1 });
         const newId = lastReview ? lastReview.id + 1 : 1;
 
         const review = new Review({
             id: newId,
             name: req.body.name,
-            dealership: req.body.dealership,
+            dealership: parseInt(req.body.dealership),
             review: req.body.review,
             purchase: req.body.purchase || false,
             purchase_date: req.body.purchase_date || '',
