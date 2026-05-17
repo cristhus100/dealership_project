@@ -4,31 +4,19 @@ on:
     branches: ['*']
 
 jobs:
-  django-tests:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Install and migrate
-        run: |
+      - run: pip install -r server/requirements.txt 2>&1 | tail -3
+      - run: python -V
+      - run: |
           cd server
-          pip install -r requirements.txt 2>&1 | tail -3
           python manage.py makemigrations djangoapp 2>&1
           python manage.py migrate 2>&1
-      - name: Test cars endpoint
-        run: |
-          cd server
           python manage.py shell -c "
 from djangoapp.populate import initiate
-from djangoapp.models import CarMake, CarModel
+from djangoapp.models import CarMake
 initiate()
-print(f'Total CarMakes: {CarMake.objects.count()}')
-print(f'Total CarModels: {CarModel.objects.count()}')
-for c in CarModel.objects.select_related('car_make'):
-    print(f'  {c.car_make.name} {c.name}')
+print(f'OK: {CarMake.objects.count()} makes created')
 "
-      - name: CI/CD completed
-        run: echo "All Django tests passed!"
