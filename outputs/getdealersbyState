@@ -1,8 +1,8 @@
-$ curl -X GET "http://localhost:8000/djangoapp/get_dealers/Kansas/"
+$ curl http://localhost:5001/fetchDealers/Kansas
 
 [
   {
-    "_id": "665a1b2c3d4e5f6a7b8c9d01",
+    "_id": "6a0a070e4723c3175c557064",
     "id": 1,
     "city": "Kansas City",
     "state": "Kansas",
@@ -15,7 +15,7 @@ $ curl -X GET "http://localhost:8000/djangoapp/get_dealers/Kansas/"
     "short_name": "Premier KC"
   },
   {
-    "_id": "665a1b2c3d4e5f6a7b8c9d02",
+    "_id": "6a0a070e4723c3175c557065",
     "id": 2,
     "city": "Overland Park",
     "state": "Kansas",
@@ -28,7 +28,7 @@ $ curl -X GET "http://localhost:8000/djangoapp/get_dealers/Kansas/"
     "short_name": "OP Luxury"
   },
   {
-    "_id": "665a1b2c3d4e5f6a7b8c9d03",
+    "_id": "6a0a070e4723c3175c557066",
     "id": 3,
     "city": "Wichita",
     "state": "Kansas",
@@ -41,7 +41,7 @@ $ curl -X GET "http://localhost:8000/djangoapp/get_dealers/Kansas/"
     "short_name": "Wichita Auto"
   },
   {
-    "_id": "665a1b2c3d4e5f6a7b8c9d07",
+    "_id": "6a0a070e4723c3175c55706a",
     "id": 7,
     "city": "Lawrence",
     "state": "Kansas",
@@ -54,7 +54,7 @@ $ curl -X GET "http://localhost:8000/djangoapp/get_dealers/Kansas/"
     "short_name": "Lawrence Cars"
   },
   {
-    "_id": "665a1b2c3d4e5f6a7b8c9d08",
+    "_id": "6a0a070e4723c3175c55706b",
     "id": 8,
     "city": "Topeka",
     "state": "Kansas",

@@ -102,7 +102,7 @@ SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
 
 # Car dealer service URL
-DEALER_API_URL = os.environ.get('DEALER_API_URL', 'http://localhost:5000')
+DEALER_API_URL = os.environ.get('DEALER_API_URL', 'http://localhost:5001')
 
 # Sentiment analyzer URL
 SENTIMENT_API_URL = os.environ.get('SENTIMENT_API_URL', 'https://sn-watson-sentiment-bert.labs.skills.network')
