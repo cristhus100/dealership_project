@@ -1,4 +1,7 @@
-# Premium Auto Dealers - Car Dealership Application
+# fullstack_developer_capstone - Premium Auto Dealers
+
+> **Project:** fullstack_developer_capstone  
+> **Repository:** xrwvm-fullstack_developer_capstone  
 
 Full-stack car dealership web application with Django backend, React frontend, Express/MongoDB microservice, and sentiment analysis.
 

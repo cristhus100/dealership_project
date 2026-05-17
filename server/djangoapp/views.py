@@ -45,18 +45,16 @@ def login_user(request):
         if user is not None:
             login(request, user)
             return JsonResponse({
-                'success': True,
-                'message': 'Login successful',
-                'username': user.username,
-                'userId': user.id,
+                'userName': user.username,
+                'status': 'Authenticated'
             })
         return JsonResponse({
-            'success': False,
-            'message': 'Invalid username or password'
+            'userName': username,
+            'status': 'Failed'
         }, status=401)
     except Exception as e:
         logger.error(f"Login error: {e}")
-        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+        return JsonResponse({'status': 'Failed', 'message': str(e)}, status=400)
 
 
 @require_http_methods(["GET"])
@@ -177,7 +175,7 @@ def analyze_sentiment(text):
     try:
         resp = requests.get(
             f'{SENTIMENT_API_URL}/analyze/{text}',
-            timeout=10
+            timeout=0.3
         )
         resp.raise_for_status()
         result = resp.json()
