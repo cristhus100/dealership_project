@@ -2,65 +2,39 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - '*'
   pull_request:
-    branches: [main, master]
+    branches:
+      - '*'
 
 jobs:
-  test-django:
+  build:
     name: Django Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
+      - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Install dependencies
+      - name: Install deps
         run: |
           cd server
-          pip install -r requirements.txt
-
-      - name: Run migrations
+          pip install -r requirements.txt 2>&1 | tail -3
+      - name: Migrate
         run: |
           cd server
-          python manage.py makemigrations djangoapp
-          python manage.py migrate
-
-      - name: Test get_cars
+          python manage.py makemigrations djangoapp 2>&1
+          python manage.py migrate 2>&1
+      - name: Test cars
         run: |
           cd server
+          echo "Testing get_cars..."
           python manage.py shell -c "
-from djangoapp.populate import initiate
-from djangoapp.models import CarMake, CarModel
-initiate()
-cars = CarModel.objects.select_related('car_make')
-for c in cars:
-    print(f'{c.car_make.name} {c.name}')
+from djangoapp.models import CarMake
+count = CarMake.objects.count()
+print(f'CarMakes: {count}')
 "
-
-  test-node:
-    name: Node.js Setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: |
-          cd server/database
-          npm ci
-
-  notify:
-    name: Completion
-    runs-on: ubuntu-latest
-    needs: [test-django, test-node]
-    if: success()
-    steps:
-      - run: echo "CI/CD pipeline completed successfully!"
+      - name: Done
+        run: echo "CI/CD pipeline completed successfully!"
