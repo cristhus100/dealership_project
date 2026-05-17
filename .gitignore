@@ -27,5 +27,3 @@ server/frontend/build/
 # Local overrides only
 *.local
 
-# Screenshots (not pushed to repo)
-screenshots/*
