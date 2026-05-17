@@ -1,11 +1,21 @@
 name: CI/CD Pipeline
-on: [push]
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo "checkout OK"
-      - run: python --version
-      - run: pip --version
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python --version && pip --version
+      - run: pip install -r server/requirements.txt 2>&1 | tail -3
+      - run: |
+          cd server
+          python manage.py makemigrations djangoapp
+          python manage.py migrate
+      - run: |
+          cd server
+          python manage.py shell -c "from djangoapp.populate import initiate; from djangoapp.models import CarMake; initiate(); print(f'OK: {CarMake.objects.count()} makes created')"
+      - run: echo "CI/CD pipeline completed successfully!"
