@@ -1,0 +1,15 @@
+$ curl -X GET "http://localhost:8000/djangoapp/api/dealer/3/"
+
+{
+  "_id": "665a1b2c3d4e5f6a7b8c9d03",
+  "id": 3,
+  "city": "Wichita",
+  "state": "Kansas",
+  "st": "KS",
+  "address": "9101 E Kellogg Dr",
+  "zip": "67207",
+  "lat": 37.689,
+  "long": -97.33,
+  "full_name": "Wichita Auto Plaza",
+  "short_name": "Wichita Auto"
+}

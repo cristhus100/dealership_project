@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review {{ dealer.full_name }} - Premium Auto Dealers</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">&#9733; Premium Auto Dealers</a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/about/" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="/contact/" class="nav-link">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Write a Review</h1>
+        <p>Share your experience with {{ dealer.full_name }}</p>
+    </div>
+
+    <div class="container">
+        <div class="contact-form" style="max-width: 700px;">
+            <h2 style="color: #1a237e; margin-bottom: 1.5rem; text-align: center;">Your Review</h2>
+            {% if error %}
+            <div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 1rem; text-align: center;">
+                {{ error }}
+            </div>
+            {% endif %}
+            <form method="POST" action="/djangoapp/add_review/">
+                {% csrf_token %}
+                <input type="hidden" name="dealer_id" value="{{ dealer.id }}">
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Your Name</label>
+                    <input type="text" name="name" placeholder="Enter your name" required
+                           style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Review Content</label>
+                    <textarea name="review" placeholder="Share your experience with this dealership..." required
+                              style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; height: 120px; box-sizing: border-box; resize: vertical;"></textarea>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: flex; align-items: center; gap: 10px; font-weight: 600;">
+                        <input type="checkbox" name="purchase" value="true">
+                        I purchased a vehicle from this dealer
+                    </label>
+                </div>
+
+                <div id="purchase-fields" style="display: none;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Car Make</label>
+                        <select name="car_make" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            <option value="">Select Make</option>
+                            {% for make in car_makes %}
+                            <option value="{{ make.name }}">{{ make.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Car Model</label>
+                        <input type="text" name="car_model" placeholder="Enter car model"
+                               style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Car Year</label>
+                        <input type="text" name="car_year" placeholder="e.g. 2023"
+                               style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Purchase Date</label>
+                        <input type="date" name="purchase_date"
+                               style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">&#9998; Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('input[name="purchase"]').addEventListener('change', function() {
+            document.getElementById('purchase-fields').style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+
+    <div class="footer">
+        <p>&copy; 2026 Premium Auto Dealers. All rights reserved.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Premium Auto Dealers - Home{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">&#9733; Premium Auto Dealers</a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="/" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="/about/" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="/contact/" class="nav-link">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Welcome to Premium Auto Dealers</h1>
+        <p>Find your perfect car from our trusted network of dealers</p>
+    </div>
+
+    <div class="container">
+        {% if user.is_authenticated %}
+        <div style="background: #e8f5e9; padding: 1rem 2rem; border-radius: 8px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <span>Welcome, <strong>{{ user.username }}</strong>!</span>
+            <div>
+                <a href="/djangoapp/logout/" class="btn" style="background: #c62828;">Logout</a>
+            </div>
+        </div>
+        {% else %}
+        <div style="background: #fff3e0; padding: 1rem 2rem; border-radius: 8px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <span>Please log in to view dealer details and submit reviews.</span>
+            <div>
+                <a href="/admin/login/" class="btn">Login</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <h2 class="section-title">Filter Dealers by State</h2>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <form method="GET" action="/djangoapp/" style="display: inline-flex; gap: 10px; align-items: center;">
+                <input type="text" name="state" placeholder="Enter state (e.g. KS, MO)" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 200px;">
+                <button type="submit" class="btn">Search</button>
+                <a href="/djangoapp/" class="btn" style="background: #666;">View All</a>
+            </form>
+        </div>
+
+        <h2 class="section-title">Our Dealers</h2>
+        <div id="dealers-list">
+            {% if dealers %}
+                {% for dealer in dealers %}
+                <div class="card">
+                    <h3 style="color: #1a237e;">{{ dealer.full_name }}</h3>
+                    <p><strong>City:</strong> {{ dealer.city }}</p>
+                    <p><strong>State:</strong> {{ dealer.state }}</p>
+                    <p><strong>Address:</strong> {{ dealer.address }}</p>
+                    {% if dealer.st %}
+                    <p><strong>Additional Info:</strong> {{ dealer.st }}</p>
+                    {% endif %}
+                    <div style="margin-top: 1rem;">
+                        <a href="/djangoapp/dealer/{{ dealer.id }}/" class="btn">View Details &amp; Reviews</a>
+                        {% if user.is_authenticated %}
+                        <a href="/djangoapp/add_review/{{ dealer.id }}/" class="btn" style="background: #2e7d32;">Review Dealer</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #666; padding: 2rem;">No dealers found. Please try a different search.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 Premium Auto Dealers. All rights reserved.</p>
+    </div>
+</body>
+</html>

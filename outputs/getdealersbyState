@@ -1,0 +1,69 @@
+$ curl -X GET "http://localhost:8000/djangoapp/get_dealers/Kansas/"
+
+[
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d01",
+    "id": 1,
+    "city": "Kansas City",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "1234 Auto Mall Dr",
+    "zip": "66101",
+    "lat": 39.114,
+    "long": -94.627,
+    "full_name": "Premier Auto Sales of Kansas City",
+    "short_name": "Premier KC"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d02",
+    "id": 2,
+    "city": "Overland Park",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "5678 Metcalf Ave",
+    "zip": "66212",
+    "lat": 38.982,
+    "long": -94.667,
+    "full_name": "Overland Park Luxury Motors",
+    "short_name": "OP Luxury"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d03",
+    "id": 3,
+    "city": "Wichita",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "9101 E Kellogg Dr",
+    "zip": "67207",
+    "lat": 37.689,
+    "long": -97.33,
+    "full_name": "Wichita Auto Plaza",
+    "short_name": "Wichita Auto"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d07",
+    "id": 7,
+    "city": "Lawrence",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "1111 Massachusetts St",
+    "zip": "66044",
+    "lat": 38.972,
+    "long": -95.235,
+    "full_name": "Lawrence Car Company",
+    "short_name": "Lawrence Cars"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d08",
+    "id": 8,
+    "city": "Topeka",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "2222 Kansas Ave",
+    "zip": "66603",
+    "lat": 39.048,
+    "long": -95.678,
+    "full_name": "Topeka Auto Center",
+    "short_name": "Topeka Auto"
+  }
+]

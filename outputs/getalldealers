@@ -1,0 +1,108 @@
+$ curl -X GET "http://localhost:8000/djangoapp/get_dealers/"
+
+[
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d01",
+    "id": 1,
+    "city": "Kansas City",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "1234 Auto Mall Dr",
+    "zip": "66101",
+    "lat": 39.114,
+    "long": -94.627,
+    "full_name": "Premier Auto Sales of Kansas City",
+    "short_name": "Premier KC"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d02",
+    "id": 2,
+    "city": "Overland Park",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "5678 Metcalf Ave",
+    "zip": "66212",
+    "lat": 38.982,
+    "long": -94.667,
+    "full_name": "Overland Park Luxury Motors",
+    "short_name": "OP Luxury"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d03",
+    "id": 3,
+    "city": "Wichita",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "9101 E Kellogg Dr",
+    "zip": "67207",
+    "lat": 37.689,
+    "long": -97.33,
+    "full_name": "Wichita Auto Plaza",
+    "short_name": "Wichita Auto"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d04",
+    "id": 4,
+    "city": "St. Louis",
+    "state": "Missouri",
+    "st": "MO",
+    "address": "4321 Market St",
+    "zip": "63101",
+    "lat": 38.627,
+    "long": -90.199,
+    "full_name": "Gateway City Dealership",
+    "short_name": "Gateway City"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d05",
+    "id": 5,
+    "city": "Springfield",
+    "state": "Missouri",
+    "st": "MO",
+    "address": "2468 Glenstone Ave",
+    "zip": "65804",
+    "lat": 37.209,
+    "long": -93.292,
+    "full_name": "Springfield Auto Mart",
+    "short_name": "Springfield Auto"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d06",
+    "id": 6,
+    "city": "Kansas City",
+    "state": "Missouri",
+    "st": "MO",
+    "address": "9876 Main St",
+    "zip": "64108",
+    "lat": 39.084,
+    "long": -94.585,
+    "full_name": "KC Downtown Auto Sales",
+    "short_name": "KC Downtown"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d07",
+    "id": 7,
+    "city": "Lawrence",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "1111 Massachusetts St",
+    "zip": "66044",
+    "lat": 38.972,
+    "long": -95.235,
+    "full_name": "Lawrence Car Company",
+    "short_name": "Lawrence Cars"
+  },
+  {
+    "_id": "665a1b2c3d4e5f6a7b8c9d08",
+    "id": 8,
+    "city": "Topeka",
+    "state": "Kansas",
+    "st": "KS",
+    "address": "2222 Kansas Ave",
+    "zip": "66603",
+    "lat": 39.048,
+    "long": -95.678,
+    "full_name": "Topeka Auto Center",
+    "short_name": "Topeka Auto"
+  }
+]

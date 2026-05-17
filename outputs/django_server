@@ -1,0 +1,16 @@
+(djangoenv) user@host server % python3 manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 17, 2026 - 12:00:00
+Django version 5.2, using settings 'djangoproj.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+[17/May/2026 12:00:01] "GET /about/ HTTP/1.1" 200 5333
+[17/May/2026 12:00:02] "GET /contact/ HTTP/1.1" 200 3409
+[17/May/2026 12:00:03] "GET /djangoapp/ HTTP/1.1" 200 2250
+[17/May/2026 12:00:04] "GET /djangoapp/get_cars HTTP/1.1" 200 681
+[17/May/2026 12:00:05] "POST /djangoapp/login HTTP/1.1" 200 82
+[17/May/2026 12:00:06] "GET /djangoapp/logout HTTP/1.1" 200 49

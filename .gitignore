@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+djangoenv/
+*.sqlite3
+
+# Node
+node_modules/
+npm-debug.log*
+
+# React build
+server/frontend/build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Local overrides only
+*.local
+
+# Screenshots (not pushed to repo)
+screenshots/*
