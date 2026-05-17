@@ -2,8 +2,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches: ['*']
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Workflow is working!"
+      - uses: actions/checkout@v4
+      - run: ls -la
