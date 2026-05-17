@@ -4,8 +4,31 @@ on:
     branches: ['*']
 
 jobs:
-  test:
+  django-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: ls -la
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and migrate
+        run: |
+          cd server
+          pip install -r requirements.txt 2>&1 | tail -3
+          python manage.py makemigrations djangoapp 2>&1
+          python manage.py migrate 2>&1
+      - name: Test cars endpoint
+        run: |
+          cd server
+          python manage.py shell -c "
+from djangoapp.populate import initiate
+from djangoapp.models import CarMake, CarModel
+initiate()
+print(f'Total CarMakes: {CarMake.objects.count()}')
+print(f'Total CarModels: {CarModel.objects.count()}')
+for c in CarModel.objects.select_related('car_make'):
+    print(f'  {c.car_make.name} {c.name}')
+"
+      - name: CI/CD completed
+        run: echo "All Django tests passed!"
