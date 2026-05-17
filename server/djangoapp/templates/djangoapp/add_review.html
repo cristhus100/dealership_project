@@ -30,7 +30,7 @@
                 {{ error }}
             </div>
             {% endif %}
-            <form method="POST" action="/djangoapp/add_review/">
+            <form method="POST" action="/djangoapp/add_review/{{ dealer.id }}/">
                 {% csrf_token %}
                 <input type="hidden" name="dealer_id" value="{{ dealer.id }}">
 
