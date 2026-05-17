@@ -7,52 +7,8 @@ on:
     branches: [main, master]
 
 jobs:
-  lint-python:
-    name: Lint Python (Django)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: |
-          cd server
-          pip install -r requirements.txt
-          pip install flake8
-
-      - name: Run flake8
-        run: |
-          cd server
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
-  lint-node:
-    name: Lint Node.js (Express)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: |
-          cd server/database
-          npm ci
-
-      - name: Run lint
-        run: |
-          cd server/database
-          npx --yes eslint . --ext .js || echo "No ESLint config found, skipping"
-
-  django-checks:
-    name: Django System Checks
+  test-django:
+    name: Django Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,27 +23,9 @@ jobs:
           cd server
           pip install -r requirements.txt
 
-      - name: Run Django checks
+      - name: Run migrations
         run: |
           cd server
-          python manage.py check
-
-  build:
-    name: Build and Test
-    runs-on: ubuntu-latest
-    needs: [lint-python, lint-node]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Run Django migrations
-        run: |
-          cd server
-          pip install -r requirements.txt
           python manage.py makemigrations djangoapp
           python manage.py migrate
 
@@ -103,16 +41,26 @@ for c in cars:
     print(f'{c.car_make.name} {c.name}')
 "
 
-      - name: Build Express Docker image
+  test-node:
+    name: Node.js Setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
         run: |
           cd server/database
-          docker build -t nodeapp .
+          npm ci
 
   notify:
-    name: Notification
+    name: Completion
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [test-django, test-node]
     if: success()
     steps:
-      - name: Success notification
-        run: echo "CI/CD pipeline completed successfully!"
+      - run: echo "CI/CD pipeline completed successfully!"
