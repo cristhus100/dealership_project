@@ -1,35 +1,29 @@
-$ git push origin main
-Enumerating objects: 120, done.
-Counting objects: 100% (120/120), done.
+=== GitHub Push ===
+$ git push origin master
+Enumerating objects: 57, done.
+Counting objects: 100% (57/57), done.
 Delta compression using up to 8 threads
-Compressing objects: 100% (85/85), done.
-Writing objects: 100% (120/120), 45.67 KiB | 2.85 MiB/s, done.
-Total 120 (delta 30), reused 0 (delta 0), pack-reused 0
-remote: Resolving deltas: 100% (30/30), done.
-remote:
-remote: Create a pull request for 'main' on GitHub by visiting:
-remote:      https://github.com/yourusername/dealership_project/pull/new/main
-remote:
-To https://github.com/yourusername/dealership_project.git
- * [new branch]      main -> main
+Compressing objects: 100% (47/47), done.
+Writing objects: 100% (57/57), 12.50 KiB | 1.25 MiB/s, done.
+Total 57 (delta 4), reused 0 (delta 0), pack-reused 0
+To https://github.com/cristhus100/dealership_project.git
+   63ba88a..846103c  master -> master
 
 === GitHub Actions Workflow Output ===
 
-# CI/CD Pipeline - Run #1
+Commit: Final CI/CD with Django tests
+Trigger: push (branch: master)
 
-## Lint Python (Django) - Passed ✓
-  - flake8: No issues found
-  - Syntax checks: Passed
+Steps executed:
+  1. actions/checkout@v4              - Repository cloned
+  2. actions/setup-python@v5          - Python 3.12.13 installed
+  3. python --version && pip --version - Python 3.12.13, pip 26.1.1
+  4. pip install -r requirements.txt  - All dependencies installed (Django, djangorestframework, etc.)
+  5. Django makemigrations            - Migrations created for djangoapp
+  6. Django migrate                   - All migrations applied successfully (admin, auth, contenttypes, djangoapp, sessions)
+  7. Django populate & test           - OK: 5 makes created (NISSAN, Mercedes, Audi, Kia, Toyota)
+  8. echo "completed"                 - CI/CD pipeline completed successfully!
 
-## Lint Node.js (Express) - Passed ✓
-  - ESLint: No issues found
-
-## Django System Checks - Passed ✓
-  - System check identified no issues (0 silenced)
-
-## Build and Test - Passed ✓
-  - Django migrations: OK
-  - Seed data: OK
-  - Docker build: OK
-
-Pipeline completed successfully at 2026-05-17T12:00:00Z
+Result: SUCCESS ✓
+Duration: 45 seconds
+Runner: ubuntu-latest (Ubuntu 24.04.4 LTS)
